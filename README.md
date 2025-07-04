@@ -19,6 +19,8 @@ Add-on do not creates new frames, but uses ZOS fps/ping panel.<br>
 - Dungeon chests counter
 - Fishing achivement info
 - Hirelings: time to the next delivery
+- Endeavors
+- Archival Fortunes
 
 - Auto repair in combat/in store
 - Auto recharge
