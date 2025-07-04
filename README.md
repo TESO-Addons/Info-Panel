@@ -1,5 +1,5 @@
 Add-on do not creates new frames, but uses ZOS fps/ping panel.<br>
-![InfoPanel](https://cdn-eso.mmoui.com/preview/pvw6194.png)
+![InfoPanel](https://cdn-eso.mmoui.com/preview/pvw14232.png)
 
 - Timer (see controls)
 - Bag/Bank space
