@@ -1,5 +1,5 @@
 InfoPanel={}
-local version=1.57
+local version=1.58
 local lang=GetCVar("language.2")
 local fs=7.2
 ZO_CreateStringId("SI_BINDING_NAME_IP_TIMER_START", "Start timer")
@@ -12,7 +12,7 @@ local ExpIcon={
 	GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS),
 	"",
 	GetCurrencyKeyboardIcon(CURT_TELVAR_STONES),
-	GetCurrencyKeyboardIcon(CURT_ENDEAVOR_SEALS),
+	GetCurrencyKeyboardIcon(CURT_SEALS),
 	GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)	
 }
 local AP={[PROGRESS_REASON_ALLIANCE_POINTS]=true}
@@ -71,6 +71,7 @@ local FishingZones={
 	[501]=916,--Carglorn
 	[109]=493,--Bleakrock
 	[305]=491,--Stros M'Kai
+	[306]=491,--Betnikh
 	[307]=492,--Khenarthi's Roost
 	--DLC
 	[347]=1186,--Imperial City
@@ -93,7 +94,7 @@ local FishingZones={
 	[930]=3500,--Firesong
 	[959]=3636,--Necrom
 	[982]=3948,--Gold Road
-	[1033]=4404,--Solstice
+	[1034]=4404,--Solstice
 	bleakrockvillage_base=493,
 	murkmire_base=2295,rootwhisper_base=2295,brightthroatvillage_base=2295,lilmothcity_base=2295,
 	imperialcity_base=1186,
@@ -107,6 +108,8 @@ local FishingZones={
 	blackreach_base=2655,
 	u28_blackreach_base=2861,
 	u38_apocrypha_base=3636,
+	u48_overland_base_west=4404,
+	u48_overland_base_east=4460,
 }
 local FishingAchievements={[471]=true,[472]=true,[473]=true,[474]=true,[475]=true,[477]=true,[478]=true,[479]=true,[480]=true,[481]=true,[483]=true,[484]=true,[485]=true,[486]=true,[487]=true,[489]=true,[490]=true,[491]=true,[492]=true,[493]=true,[916]=true,[1186]=true,[1339]=true,[1340]=true,[1351]=true,[1431]=true,[1882]=true,[2191]=true,[2240]=true,[2295]=true,[2412]=true,[2566]=true,[2655]=true,[2861]=true,[2981]=true,[3144]=true,[3269]=true,[3500]=true,[3636]=true,[3948]=true,[4404]=true}
 local FishingBugFix={[473]={[3]="River"},[2027]={[8]="Oily"},[472]={[1]="Foul"}}
@@ -167,8 +170,8 @@ Settings={
 	[20]={name="Vouchers",value=false,icon=GetCurrencyKeyboardIcon(CURT_WRIT_VOUCHERS)},
 	[21]={name="Transmutation",value=false,icon=GetCurrencyKeyboardIcon(CURT_CHAOTIC_CREATIA)},
 	[22]={name="UndauntedKeys",value=false,icon=GetCurrencyKeyboardIcon(CURT_UNDAUNTED_KEYS)},
-	[23]={name="EventTickets",value=false,icon=GetCurrencyKeyboardIcon(CURT_EVENT_TICKETS)},
-	[24]={name="Endeavors",value=false,icon=GetCurrencyKeyboardIcon(CURT_ENDEAVOR_SEALS)},
+	[23]={name="TomePoints",value=false,icon=GetCurrencyKeyboardIcon(CURT_TOME_POINTS)},
+	[24]={name="Seals",value=false,icon=GetCurrencyKeyboardIcon(CURT_SEALS)},
 	[25]={name="ArchivalFortunes",value=false,icon=GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)}, 
 	[26]={name="Fence",value=false,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_stolenitem.dds"},
 	[27]={name="Apparel",value=true,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_apparel.dds"},	   --esoui/art/progression/icon_armorsmith.dds
@@ -225,8 +228,8 @@ local Localization={
 	"Writ vouchers",			"",
 	"Transmutation stones",		   "",
 	"Undaunted keys",			 "",
-	"Event tickets",			"",
-	"Seals of Endeavor",		"Displays current Seals of Endeavor balance",
+	"Tome Points",			"",
+	"Seals",		"Displays current Seals balance",
 	"Archival Fortunes",		"Displays current Archival Fortunes balance",
 	"Stolen/Fence,Launder",		   "",
 	"Apparel condition",		"",
@@ -294,8 +297,8 @@ local Localization={
 	"Ваучеры",				  "",
 	"Камни трансмутации",		 "",
 	"Ключи неустрашимых",		 "",
-	"Билеты событий",			 "",
-	"Печати свершений",		   "Показывает текущий баланс печатей свершений",
+	"Очки фолиантов",			 "",
+	"Печати ",		   "Показывает текущий баланс печатей",
 	"Ценности из архива",		 "Показывает текущий баланс ценностей из архива",
 	"Краденное/можно сдать,отмыть","",
 	"Состояние доспехов",		 "",
@@ -363,7 +366,7 @@ local Localization={
 	"Wertgutscheine",			 "",
 	"Transmutationskristalle",	  "",
 	"Undaunted keys",			 "",
-	"Event tickets",			"",
+	"Tome Points",			"",
 	"Siegel der Bestrebungen",	  "Zeigt das aktuelle Siegel der Bestrebungen Guthaben an",
 	"Archivale Schätze",		 "Zeigt die aktuellen Archivschätze an",
 	"Gestohlen/Hehler,schieben",	"",
@@ -432,7 +435,7 @@ local Localization={
 	"Commandes d'artisanat",	"Indique le nombre de commandes d'artisanat en attentes de livraison.",
 	"Pierre de Transmutation",	  "Indique le nombre de Pierres de transmutation en possession du personnage",
 	"Undaunted keys",			 "",
-	"Event tickets",			"",
+	"Tome Points",			"",
 	"Sceaux d'Effort",		  "Affiche le solde actuel des Sceaux d'Effort",
 	"Fortunes archivistiques", "Affiche le solde actuel des Fortunes archivistiques",
 	"Objets volés/vendus/blanchis","Indique le nombre d'objets volés, vendus et blanchis en possession du personnage.",
@@ -881,8 +884,7 @@ end
 local function GetCurency(currencyType)
 	local location = (currencyType == CURT_CHAOTIC_CREATIA or 
 					 currencyType == CURT_UNDAUNTED_KEYS or 
-					 currencyType == CURT_EVENT_TICKETS or 
-					 currencyType == CURT_ENDEAVOR_SEALS or
+					 currencyType == CURT_SEALS or
 					 currencyType == CURT_ARCHIVAL_FORTUNES) and CURRENCY_LOCATION_ACCOUNT or CURRENCY_LOCATION_CHARACTER
 	local amount = GetCurrencyAmount(currencyType, location)
 	local icon = GetCurrencyKeyboardIcon(currencyType)
@@ -890,7 +892,7 @@ local function GetCurency(currencyType)
 	
 	if currencyType == CURT_MONEY and amount < 1000 then
 		color = "|cCC2222"
-	elseif (currencyType == CURT_ENDEAVOR_SEALS or currencyType == CURT_ARCHIVAL_FORTUNES) and amount == 0 then
+	elseif (currencyType == CURT_SEALS or currencyType == CURT_ARCHIVAL_FORTUNES) and amount == 0 then
 		color = "|cCC2222"
 	else
 		color = "|cFFFFFF"
@@ -1051,13 +1053,13 @@ function InfoPanel.Update()
 		info=info..(info=="" and "" or "  ")..text
 		panel_w=panel_w+icon_p_size1+(w+2)*fs
 	end
-	if GlobalSettings.EventTickets then
-		local text,w=GetCurency(CURT_EVENT_TICKETS)
+	if GlobalSettings.TomePoints then
+		local text,w=GetCurency(CURT_TOME_POINTS)
 		info=info..(info=="" and "" or "  ")..text
 		panel_w=panel_w+icon_p_size1+(w+2)*fs
 	end
-	if GlobalSettings.Endeavors then
-		local text,w=GetCurency(CURT_ENDEAVOR_SEALS)
+	if GlobalSettings.Seals then
+		local text,w=GetCurency(CURT_SEALS)
 		info=info..(info=="" and "" or "  ")..text
 		panel_w=panel_w+icon_p_size1+(w+2)*fs
 	end
