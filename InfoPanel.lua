@@ -1,5 +1,5 @@
 InfoPanel={}
-local version=1.58
+local version=1.59
 local lang=GetCVar("language.2")
 local fs=7.2
 ZO_CreateStringId("SI_BINDING_NAME_IP_TIMER_START", "Start timer")
@@ -13,7 +13,7 @@ local ExpIcon={
 	"",
 	GetCurrencyKeyboardIcon(CURT_TELVAR_STONES),
 	GetCurrencyKeyboardIcon(CURT_SEALS),
-	GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)	
+	GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES),
 }
 local AP={[PROGRESS_REASON_ALLIANCE_POINTS]=true}
 local Exp={
@@ -94,7 +94,8 @@ local FishingZones={
 	[930]=3500,--Firesong
 	[959]=3636,--Necrom
 	[982]=3948,--Gold Road
-	[1034]=4404,--Solstice
+	[1033]=4404,--W Solstice
+	[1034]=4460,--E Solstice
 	bleakrockvillage_base=493,
 	murkmire_base=2295,rootwhisper_base=2295,brightthroatvillage_base=2295,lilmothcity_base=2295,
 	imperialcity_base=1186,
@@ -111,7 +112,7 @@ local FishingZones={
 	u48_overland_base_west=4404,
 	u48_overland_base_east=4460,
 }
-local FishingAchievements={[471]=true,[472]=true,[473]=true,[474]=true,[475]=true,[477]=true,[478]=true,[479]=true,[480]=true,[481]=true,[483]=true,[484]=true,[485]=true,[486]=true,[487]=true,[489]=true,[490]=true,[491]=true,[492]=true,[493]=true,[916]=true,[1186]=true,[1339]=true,[1340]=true,[1351]=true,[1431]=true,[1882]=true,[2191]=true,[2240]=true,[2295]=true,[2412]=true,[2566]=true,[2655]=true,[2861]=true,[2981]=true,[3144]=true,[3269]=true,[3500]=true,[3636]=true,[3948]=true,[4404]=true}
+local FishingAchievements={[471]=true,[472]=true,[473]=true,[474]=true,[475]=true,[477]=true,[478]=true,[479]=true,[480]=true,[481]=true,[483]=true,[484]=true,[485]=true,[486]=true,[487]=true,[489]=true,[490]=true,[491]=true,[492]=true,[493]=true,[916]=true,[1186]=true,[1339]=true,[1340]=true,[1351]=true,[1431]=true,[1882]=true,[2191]=true,[2240]=true,[2295]=true,[2412]=true,[2566]=true,[2655]=true,[2861]=true,[2981]=true,[3144]=true,[3269]=true,[3500]=true,[3636]=true,[3948]=true,[4404]=true,[4460]=true}
 local FishingBugFix={[473]={[3]="River"},[2027]={[8]="Oily"},[472]={[1]="Foul"}}
 
 local function ResetToDefault()
@@ -170,39 +171,39 @@ Settings={
 	[20]={name="Vouchers",value=false,icon=GetCurrencyKeyboardIcon(CURT_WRIT_VOUCHERS)},
 	[21]={name="Transmutation",value=false,icon=GetCurrencyKeyboardIcon(CURT_CHAOTIC_CREATIA)},
 	[22]={name="UndauntedKeys",value=false,icon=GetCurrencyKeyboardIcon(CURT_UNDAUNTED_KEYS)},
-	[23]={name="TomePoints",value=false,icon=GetCurrencyKeyboardIcon(CURT_TOME_POINTS)},
-	[24]={name="Seals",value=false,icon=GetCurrencyKeyboardIcon(CURT_SEALS)},
-	[25]={name="ArchivalFortunes",value=false,icon=GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)}, 
-	[26]={name="Fence",value=false,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_stolenitem.dds"},
-	[27]={name="Apparel",value=true,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_apparel.dds"},	   --esoui/art/progression/icon_armorsmith.dds
-	[28]={name="Weapons",value=true,icon="/esoui/art/progression/icon_weaponsmith.dds"},
-	[29]={name="Achievements",value=3,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds",dropdown=true},
-	[30]={name="Skyshards",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds"},
---	  [27]={name="ESOPlus",value=0,icon="/esoui/art/inventory/inventory_quest_tabicon_active.dds",slider=true,maxvalue=120,setfunc=function(days) if days==0 then GlobalSettings.ESOPlus=0 else ESOPlusSubscriber=IsESOPlusSubscriber() local h,m,s=string.match(GetTimeString(),"(%d+):(%d+):(%d+)") GlobalSettings.ESOPlus=GetTimeStamp()-(h*60*60+m*60+s)+(days*24*60*60)+(18*60*60) end end,getfunc=function() return GlobalSettings.ESOPlus==0 and 0 or math.floor((GlobalSettings.ESOPlus-GetTimeStamp())/60/60/24) end},
-	[31]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec","Endeavors/sec"}},
-	[32]={name="ReelAlert",value=false,icon="/esoui/art/icons/achievements_indexicon_fishing_up.dds"},
-	[33]={name="FishingAchivement",value=false,character=true,icon="/esoui/art/icons/crafting_fishing_merringar.dds"},
-	[34]={name="TrialInfo",value=false,icon="/esoui/art/tutorial/gamepad/gp_lfg_trial.dds"},
-	[35]={name="DungeonInfo",value=false,icon="/esoui/art/icons/mapkey/mapkey_solotrial.dds"},
-	[36]={name="DungeonChests",value=true,icon="/InfoPanel/Chest.dds"},
-	[37]={name="Hirelings",value=false,icon="/esoui/art/mail/gamepad/gp_mailmenu_attachitem.dds"},
-	[38]={name="Settings",value=true,header=true},
-	[39]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
-	[40]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
-	[41]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
-	[42]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
-	[43]={name="Settings",value=true,header=true},
-	[44]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
-	[45]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
-	[46]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
-	[47]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
-	[48]={name="Center",button=true,func=function() CenterInfoPanel() end},
-	[49]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
-	[50]={name="AutoRepair",value=true,header=true},
-	[51]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[52]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[53]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
-	[54]={name="ChatOutput",value=true,icon="/esoui/art/tutorial/chat-notifications_up.dds"},
+	[23]={name="TradeBars",value=false,icon=GetCurrencyKeyboardIcon(CURT_TRADE_BARS)},
+	[24]={name="TomePoints",value=false,icon=GetCurrencyKeyboardIcon(CURT_TOME_POINTS)},
+	[25]={name="Seals",value=false,icon=GetCurrencyKeyboardIcon(CURT_SEALS)},
+	[26]={name="ArchivalFortunes",value=false,icon=GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)}, 
+	[27]={name="Fence",value=false,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_stolenitem.dds"},
+--	[27]={name="ESOPlus",value=0,icon="/esoui/art/inventory/inventory_quest_tabicon_active.dds",slider=true,maxvalue=120,setfunc=function(days) if days==0 then GlobalSettings.ESOPlus=0 else ESOPlusSubscriber=IsESOPlusSubscriber() local h,m,s=string.match(GetTimeString(),"(%d+):(%d+):(%d+)") GlobalSettings.ESOPlus=GetTimeStamp()-(h*60*60+m*60+s)+(days*24*60*60)+(18*60*60) end end,getfunc=function() return GlobalSettings.ESOPlus==0 and 0 or math.floor((GlobalSettings.ESOPlus-GetTimeStamp())/60/60/24) end},
+	[28]={name="Apparel",value=true,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_apparel.dds"},	   --esoui/art/progression/icon_armorsmith.dds
+	[29]={name="Weapons",value=true,icon="/esoui/art/progression/icon_weaponsmith.dds"},
+	[30]={name="Achievements",value=3,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds",dropdown=true},
+	[31]={name="Skyshards",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds"},
+	[32]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec","Endeavors/sec"}},
+	[33]={name="ReelAlert",value=false,icon="/esoui/art/icons/achievements_indexicon_fishing_up.dds"},
+	[34]={name="FishingAchivement",value=false,character=true,icon="/esoui/art/icons/crafting_fishing_merringar.dds"},
+	[35]={name="TrialInfo",value=false,icon="/esoui/art/tutorial/gamepad/gp_lfg_trial.dds"},
+	[36]={name="DungeonInfo",value=false,icon="/esoui/art/icons/mapkey/mapkey_solotrial.dds"},
+	[37]={name="DungeonChests",value=true,icon="/InfoPanel/Chest.dds"},
+	[38]={name="Hirelings",value=false,icon="/esoui/art/mail/gamepad/gp_mailmenu_attachitem.dds"},
+	[39]={name="Settings",value=true,header=true},
+	[40]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
+	[41]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
+	[42]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
+	[43]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
+	[44]={name="Settings",value=true,header=true},
+	[45]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
+	[46]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
+	[47]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
+	[48]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
+	[49]={name="Center",button=true,func=function() CenterInfoPanel() end},
+	[50]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
+	[51]={name="AutoRepair",value=true,header=true},
+	[52]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[53]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[54]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
 	}
 local Localization={
 	en={
@@ -228,6 +229,7 @@ local Localization={
 	"Writ vouchers",			"",
 	"Transmutation stones",		   "",
 	"Undaunted keys",			 "",
+	"Trade Bars",			"Displays current Trade Bars balance",
 	"Tome Points",			"",
 	"Seals",		"Displays current Seals balance",
 	"Archival Fortunes",		"Displays current Archival Fortunes balance",
@@ -297,6 +299,7 @@ local Localization={
 	"Ваучеры",				  "",
 	"Камни трансмутации",		 "",
 	"Ключи неустрашимых",		 "",
+	"Торговые слитки",		"Показывает текущий баланс торговых слитков",
 	"Очки фолиантов",			 "",
 	"Печати ",		   "Показывает текущий баланс печатей",
 	"Ценности из архива",		 "Показывает текущий баланс ценностей из архива",
@@ -315,9 +318,9 @@ local Localization={
 	"Наемники (beta)",		  "Время до следующей доставки.",
 	"Сообщения чата",		 "",
 	"Обновления достижений",	"Вывод в чат информации о обновлении достижений.",
-	"Получение AP gain",		"При получении большого колличества AP выводить сообщение в окно чата.",
-	"Получение Telvar-ов",		  "При получении большого колличества Telvar-ов выводить сообщение в окно чата.",
-	"Получение Опыта",		  "При получении большого колличества опыта выводить сообщение в окно чата.",
+	"Получение AP gain",		"При получении большого количества AP выводить сообщение в окно чата.",
+	"Получение Telvar-ов",		  "При получении большого количества Telvar-ов выводить сообщение в окно чата.",
+	"Получение Опыта",		  "При получении большого количества опыта выводить сообщение в окно чата.",
 	"Настройки панели",		   "",
 	"Включить панель",		  "Добавляет к стандартной панели производительности дополнительную информацию.",
 	"Прозрачность фона",		"Если выставить на 0 то фон будет полностью отключен.",
@@ -366,6 +369,7 @@ local Localization={
 	"Wertgutscheine",			 "",
 	"Transmutationskristalle",	  "",
 	"Undaunted keys",			 "",
+	"Trade Bars",			"Displays current Trade Bars balance",
 	"Tome Points",			"",
 	"Siegel der Bestrebungen",	  "Zeigt das aktuelle Siegel der Bestrebungen Guthaben an",
 	"Archivale Schätze",		 "Zeigt die aktuellen Archivschätze an",
@@ -399,6 +403,7 @@ local Localization={
 	"Auto repair in combat",	"Automaticaly repairs your apparel when it damaged (works only with [Grand Repair Kit])",
 	"Auto recharge",			"Automaticaly recharges your weapons",
 	"Chat output",			  "Post to char repair/recharge results",
+	"Handelsbarren",		"Zeigt den aktuellen Kontostand der Handelsbarren an",
 	Name="Info Panel",
 	AutoRepair="Auto Repair",
 	choices={"gesamt", "gesamt/von", "deaktiviert"},
@@ -435,6 +440,7 @@ local Localization={
 	"Commandes d'artisanat",	"Indique le nombre de commandes d'artisanat en attentes de livraison.",
 	"Pierre de Transmutation",	  "Indique le nombre de Pierres de transmutation en possession du personnage",
 	"Undaunted keys",			 "",
+	"Trade Bars",			"Displays current Trade Bars balance",
 	"Tome Points",			"",
 	"Sceaux d'Effort",		  "Affiche le solde actuel des Sceaux d'Effort",
 	"Fortunes archivistiques", "Affiche le solde actuel des Fortunes archivistiques",
@@ -885,7 +891,8 @@ local function GetCurency(currencyType)
 	local location = (currencyType == CURT_CHAOTIC_CREATIA or 
 					 currencyType == CURT_UNDAUNTED_KEYS or 
 					 currencyType == CURT_SEALS or
-					 currencyType == CURT_ARCHIVAL_FORTUNES) and CURRENCY_LOCATION_ACCOUNT or CURRENCY_LOCATION_CHARACTER
+					 currencyType == CURT_ARCHIVAL_FORTUNES or
+					 currencyType == CURT_TRADE_BARS) and CURRENCY_LOCATION_ACCOUNT or CURRENCY_LOCATION_CHARACTER
 	local amount = GetCurrencyAmount(currencyType, location)
 	local icon = GetCurrencyKeyboardIcon(currencyType)
 	local color
@@ -1050,6 +1057,11 @@ function InfoPanel.Update()
 	end
 	if GlobalSettings.UndauntedKeys then
 		local text,w=GetCurency(CURT_UNDAUNTED_KEYS)
+		info=info..(info=="" and "" or "  ")..text
+		panel_w=panel_w+icon_p_size1+(w+2)*fs
+	end
+	if GlobalSettings.TradeBars then
+		local text,w=GetCurency(CURT_TRADE_BARS)
 		info=info..(info=="" and "" or "  ")..text
 		panel_w=panel_w+icon_p_size1+(w+2)*fs
 	end
