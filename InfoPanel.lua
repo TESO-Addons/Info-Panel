@@ -181,7 +181,7 @@ Settings={
 	[29]={name="Weapons",value=true,icon="/esoui/art/progression/icon_weaponsmith.dds"},
 	[30]={name="Achievements",value=3,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds",dropdown=true},
 	[31]={name="Skyshards",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds"},
-	[32]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec","Endeavors/sec"}},
+	[32]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec"}},
 	[33]={name="ReelAlert",value=false,icon="/esoui/art/icons/achievements_indexicon_fishing_up.dds"},
 	[34]={name="FishingAchivement",value=false,character=true,icon="/esoui/art/icons/crafting_fishing_merringar.dds"},
 	[35]={name="TrialInfo",value=false,icon="/esoui/art/tutorial/gamepad/gp_lfg_trial.dds"},
@@ -761,8 +761,8 @@ end
 local function GetAchievementPoints()
 	local total,available=GetEarnedAchievementPoints(),GetTotalAchievementPoints()
 	local pct=math.floor(total/available*100)
-	achievements1=zo_iconFormat(Settings[29].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)|r"
-	achievements2=zo_iconFormat(Settings[29].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)/"..format_number(available).."|r"
+	achievements1=zo_iconFormat(Settings[30].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)|r"
+	achievements2=zo_iconFormat(Settings[30].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)/"..format_number(available).."|r"
 end
 
 local function OnBagpackAdded(bagId, slotIndex, slotData)
@@ -1084,14 +1084,14 @@ function InfoPanel.Update()
 		local text=StolenItems
 		panel_w=panel_w+icon_p_size1+(string.len(text)+1)*fs
 		if FenceSells~=FenceLaunders then text=text.." |cCCCCAA/"..FenceSells..","..FenceLaunders.."|r" panel_w=panel_w+(string.len(FenceSells..FenceLaunders)+1)*fs end
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[26].icon,icon_p_size1,icon_p_size1)..text
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[27].icon,icon_p_size1,icon_p_size1)..text
 	end
 	if GlobalSettings.Apparel then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[27].icon,icon_p_size1,icon_p_size1).." "..((WornCondition<=10) and "|cCC2222" or "|cCCCCAA")..WornCondition.."%|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[28].icon,icon_p_size1,icon_p_size1).." "..((WornCondition<=10) and "|cCC2222" or "|cCCCCAA")..WornCondition.."%|r"
 		panel_w=panel_w+icon_p_size1+(WornCondition<100 and 4.5 or 5)*fs
 	end
 	if GlobalSettings.Weapons then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[28].icon,icon_p_size1,icon_p_size1).." "..((MinCharge<=10) and "|cCC2222" or "|cCCCCAA")..MinCharge.."%|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[29].icon,icon_p_size1,icon_p_size1).." "..((MinCharge<=10) and "|cCC2222" or "|cCCCCAA")..MinCharge.."%|r"
 		panel_w=panel_w+icon_p_size1+(MinCharge<100 and 4.5 or 5)*fs
 	end
 	if GlobalSettings.Achievements==1 then
@@ -1102,7 +1102,7 @@ function InfoPanel.Update()
 		panel_w=panel_w+icon_p_size1+17*fs
 	end
 	if GlobalSettings.Skyshards then
-		info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[30].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..GetNumSkyShards().."|r")
+		info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[31].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..GetNumSkyShards().."|r")
 		panel_w=panel_w+icon_p_size2+3*fs
 	end
 --[[
@@ -1120,17 +1120,17 @@ function InfoPanel.Update()
 --		  local t2=format_timer(RaidTargetTime)
 		local score=GetCurrentRaidScore()/1000
 		local t3=score>0 and ": "..score.."K" or ""
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[34].icon,icon_p_size2,icon_p_size2).." "..t1..t3	 --"|cCCCCAA/"..t2.."|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[35].icon,icon_p_size2,icon_p_size2).." "..t1..t3	 --"|cCCCCAA/"..t2.."|r"
 		panel_w=panel_w+icon_p_size2+(string.len(t1..t3)+4)*fs
 	end
 	if GlobalSettings.DungeonInfo and DungeonStartTime>0 then
 		local duration=(GetGameTimeMilliseconds()-DungeonStartTime)/1000
 		local t1=duration>60 and format_timer(duration) or "0m"
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[35].icon,icon_p_size2,icon_p_size2).." "..t1
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[36].icon,icon_p_size2,icon_p_size2).." "..t1
 		panel_w=panel_w+icon_p_size2+(string.len(t1)+1)*fs
 	end
 	if GlobalSettings.DungeonChests and DungeonStartTime>0 then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[36].icon,icon_p_size2,icon_p_size2).." "..ChestsLooted.."|cCCCCAA/2"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[37].icon,icon_p_size2,icon_p_size2).." "..ChestsLooted.."|cCCCCAA/2"
 		panel_w=panel_w+icon_p_size2+5*fs
 	end
 	if CharacterSettings.FishingAchivement and FishingWidth>0 then
@@ -1140,7 +1140,7 @@ function InfoPanel.Update()
 	if GlobalSettings.Hirelings and CharacterSettings.Hireling then
 		local delay=CharacterSettings.Hireling-GetTimeStamp()
 		if delay>0 then
-			info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[37].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..format_timer(delay).."|r")
+			info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[38].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..format_timer(delay).."|r")
 			panel_w=panel_w+icon_p_size2+5*fs
 		end
 	end
@@ -1334,7 +1334,7 @@ local function OnExpUpdate(_,unitTag,currentExp,maxExp,reason)
 		if GlobalSettings.ExPgain then
 			local experience=currentExp-LastExp
 			if experience>=5000 then
-				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[42].icon,icon_p_size2,icon_p_size2),reason))
+				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[43].icon,icon_p_size2,icon_p_size2),reason))
 			end
 		end
 	end
@@ -1349,7 +1349,7 @@ local function OnApUpdate(_,alliancePoints,playSound,difference,reason)
 	end
 
 	if GlobalSettings.APgain and playSound and difference>=1000 then
-		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[40].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
+		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[41].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
 	end
 end
 
@@ -1364,7 +1364,7 @@ local function OnTelvarGain(_,newTelvarStones,oldTelvarStones,reason)
 	if GlobalSettings.TelvarGain then
 		local stones=newTelvarStones-oldTelvarStones
 		if stones>=500 then
-			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[41].icon,icon_p_size2,icon_p_size2),reason))
+			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[42].icon,icon_p_size2,icon_p_size2),reason))
 		end
 	end
 end
