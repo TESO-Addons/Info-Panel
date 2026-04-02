@@ -1,5 +1,5 @@
 InfoPanel={}
-local version=1.60
+local version=1.59
 local lang=GetCVar("language.2")
 local fs=7.2
 ZO_CreateStringId("SI_BINDING_NAME_IP_TIMER_START", "Start timer")
@@ -168,43 +168,42 @@ Settings={
 	[17]={name="AP",value=false,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
 	[18]={name="Gold",value=false,icon=GetCurrencyKeyboardIcon(CURT_MONEY)},
 	[19]={name="Telvar",value=false,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
-	[20]={name="ImperialFragments",value=false,icon=GetCurrencyKeyboardIcon(CURT_IMPERIAL_FRAGMENTS)},	
-	[21]={name="Vouchers",value=false,icon=GetCurrencyKeyboardIcon(CURT_WRIT_VOUCHERS)},
-	[22]={name="Transmutation",value=false,icon=GetCurrencyKeyboardIcon(CURT_CHAOTIC_CREATIA)},
-	[23]={name="UndauntedKeys",value=false,icon=GetCurrencyKeyboardIcon(CURT_UNDAUNTED_KEYS)},
-	[24]={name="TradeBars",value=false,icon=GetCurrencyKeyboardIcon(CURT_TRADE_BARS)},
-	[25]={name="TomePoints",value=false,icon=GetCurrencyKeyboardIcon(CURT_TOME_POINTS)},
-	[26]={name="Seals",value=false,icon=GetCurrencyKeyboardIcon(CURT_SEALS)},
-	[27]={name="ArchivalFortunes",value=false,icon=GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)}, 
+	[20]={name="Vouchers",value=false,icon=GetCurrencyKeyboardIcon(CURT_WRIT_VOUCHERS)},
+	[21]={name="Transmutation",value=false,icon=GetCurrencyKeyboardIcon(CURT_CHAOTIC_CREATIA)},
+	[22]={name="UndauntedKeys",value=false,icon=GetCurrencyKeyboardIcon(CURT_UNDAUNTED_KEYS)},
+	[23]={name="TradeBars",value=false,icon=GetCurrencyKeyboardIcon(CURT_TRADE_BARS)},
+	[24]={name="TomePoints",value=false,icon=GetCurrencyKeyboardIcon(CURT_TOME_POINTS)},
+	[25]={name="Seals",value=false,icon=GetCurrencyKeyboardIcon(CURT_SEALS)},
+	[26]={name="ArchivalFortunes",value=false,icon=GetCurrencyKeyboardIcon(CURT_ARCHIVAL_FORTUNES)}, 
+	[27]={name="Fence",value=false,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_stolenitem.dds"},
 --	[27]={name="ESOPlus",value=0,icon="/esoui/art/inventory/inventory_quest_tabicon_active.dds",slider=true,maxvalue=120,setfunc=function(days) if days==0 then GlobalSettings.ESOPlus=0 else ESOPlusSubscriber=IsESOPlusSubscriber() local h,m,s=string.match(GetTimeString(),"(%d+):(%d+):(%d+)") GlobalSettings.ESOPlus=GetTimeStamp()-(h*60*60+m*60+s)+(days*24*60*60)+(18*60*60) end end,getfunc=function() return GlobalSettings.ESOPlus==0 and 0 or math.floor((GlobalSettings.ESOPlus-GetTimeStamp())/60/60/24) end},
-	[28]={name="Fence",value=false,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_stolenitem.dds"},
-	[29]={name="Apparel",value=true,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_apparel.dds"},	   --esoui/art/progression/icon_armorsmith.dds
-	[30]={name="Weapons",value=true,icon="/esoui/art/progression/icon_weaponsmith.dds"},
-	[31]={name="Achievements",value=3,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds",dropdown=true},
-	[32]={name="Skyshards",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds"},
-	[33]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec"}},
-	[34]={name="ReelAlert",value=false,icon="/esoui/art/icons/achievements_indexicon_fishing_up.dds"},
-	[35]={name="FishingAchivement",value=false,character=true,icon="/esoui/art/icons/crafting_fishing_merringar.dds"},
-	[36]={name="TrialInfo",value=false,icon="/esoui/art/tutorial/gamepad/gp_lfg_trial.dds"},
-	[37]={name="DungeonInfo",value=false,icon="/esoui/art/icons/mapkey/mapkey_solotrial.dds"},
-	[38]={name="DungeonChests",value=true,icon="/InfoPanel/Chest.dds"},
-	[39]={name="Hirelings",value=false,icon="/esoui/art/mail/gamepad/gp_mailmenu_attachitem.dds"},
-	[40]={name="Settings",value=true,header=true},
-	[41]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
-	[42]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
-	[43]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
-	[44]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
-	[45]={name="Settings",value=true,header=true},
-	[46]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
-	[47]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
-	[48]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
-	[49]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
-	[50]={name="Center",button=true,func=function() CenterInfoPanel() end},
-	[51]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
-	[52]={name="AutoRepair",value=true,header=true},
-	[53]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[54]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[55]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
+	[28]={name="Apparel",value=true,icon="/esoui/art/inventory/gamepad/gp_inventory_icon_apparel.dds"},	   --esoui/art/progression/icon_armorsmith.dds
+	[29]={name="Weapons",value=true,icon="/esoui/art/progression/icon_weaponsmith.dds"},
+	[30]={name="Achievements",value=3,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds",dropdown=true},
+	[31]={name="Skyshards",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_skyshards.dds"},
+	[32]={name="ExpPS",value=3,icon="/esoui/art/icons/icon_experience.dds",dropdown=true,choices={"Exp/sec","AP/sec","disabled","Telvar/sec"}},
+	[33]={name="ReelAlert",value=false,icon="/esoui/art/icons/achievements_indexicon_fishing_up.dds"},
+	[34]={name="FishingAchivement",value=false,character=true,icon="/esoui/art/icons/crafting_fishing_merringar.dds"},
+	[35]={name="TrialInfo",value=false,icon="/esoui/art/tutorial/gamepad/gp_lfg_trial.dds"},
+	[36]={name="DungeonInfo",value=false,icon="/esoui/art/icons/mapkey/mapkey_solotrial.dds"},
+	[37]={name="DungeonChests",value=true,icon="/InfoPanel/Chest.dds"},
+	[38]={name="Hirelings",value=false,icon="/esoui/art/mail/gamepad/gp_mailmenu_attachitem.dds"},
+	[39]={name="Settings",value=true,header=true},
+	[40]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
+	[41]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
+	[42]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
+	[43]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
+	[44]={name="Settings",value=true,header=true},
+	[45]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
+	[46]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
+	[47]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
+	[48]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
+	[49]={name="Center",button=true,func=function() CenterInfoPanel() end},
+	[50]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
+	[51]={name="AutoRepair",value=true,header=true},
+	[52]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[53]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[54]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
 	}
 local Localization={
 	en={
@@ -227,7 +226,6 @@ local Localization={
 	"Alliance points",		  "",
 	"Gold",				   "",
 	"Telvar stones",			"",
-	"Imperial Fragments", "Displays current Imperial Fragments balance",
 	"Writ vouchers",			"",
 	"Transmutation stones",		   "",
 	"Undaunted keys",			 "",
@@ -298,7 +296,6 @@ local Localization={
 	"Альянс поинты",			"",
 	"Золото",				 "",
 	"Камни Тель-Вар",			 "",
-	"Имперские фрагменты", "Показывает текущий баланс имперских фрагментов",
 	"Ваучеры",				  "",
 	"Камни трансмутации",		 "",
 	"Ключи неустрашимых",		 "",
@@ -368,8 +365,7 @@ local Localization={
 	"Forschungsinformation",	"This option automaticaly disables for characters who knows all traits or does not researching",
 	"Allianz Punkte",			 "",
 	"Gold",				   "",
-	"Telvar Steine",            "",
-	"Imperiale Fragmente",      "Zeigt den aktuellen Bestand an imperialen Fragmenten an",
+	"Telvar Steine",			"",
 	"Wertgutscheine",			 "",
 	"Transmutationskristalle",	  "",
 	"Undaunted keys",			 "",
@@ -440,8 +436,7 @@ local Localization={
 	"Recherche",			"Indique le nombre de recherches en cours. Ne s'affiche pas lorsque le personnage n'effectue aucune recherche ou a apprit tous les traits.",
 	"Points d'alliance",		"Indique le nombre de Points d'alliance en possession du personnage.",
 	"Or",					 "Indique la quantité d'or en possession du personnage.",
-	"Pierres de Tel Var",       "Indique le nombre de Pierres de Tel Var en possession du personnage.",
-	"Fragments impériaux",      "Affiche le solde actuel des fragments impériaux",
+	"Pierres de Tel Var",		 "Indique le nombre de Pierres de Tel Var en possession du personnage.",
 	"Commandes d'artisanat",	"Indique le nombre de commandes d'artisanat en attentes de livraison.",
 	"Pierre de Transmutation",	  "Indique le nombre de Pierres de transmutation en possession du personnage",
 	"Undaunted keys",			 "",
@@ -766,8 +761,8 @@ end
 local function GetAchievementPoints()
 	local total,available=GetEarnedAchievementPoints(),GetTotalAchievementPoints()
 	local pct=math.floor(total/available*100)
-	achievements1=zo_iconFormat(Settings[31].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)|r"
-	achievements2=zo_iconFormat(Settings[31].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)/"..format_number(available).."|r"
+	achievements1=zo_iconFormat(Settings[30].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)|r"
+	achievements2=zo_iconFormat(Settings[30].icon,icon_p_size1,icon_p_size1).." |cCCCCAA"..format_number(total).."("..pct.."%)/"..format_number(available).."|r"
 end
 
 local function OnBagpackAdded(bagId, slotIndex, slotData)
@@ -894,11 +889,11 @@ end
 --	  /script d("|t26:26:/esoui/art/icons/icon_experience.dds|t abcde")
 local function GetCurency(currencyType)
 	local location = (currencyType == CURT_CHAOTIC_CREATIA or 
-					 currencyType == CURT_UNDAUNTED_KEYS or
-					 currencyType == CURT_IMPERIAL_FRAGMENTS or
+					 currencyType == CURT_UNDAUNTED_KEYS or 
 					 currencyType == CURT_SEALS or
 					 currencyType == CURT_ARCHIVAL_FORTUNES or
-					 currencyType == CURT_TRADE_BARS) and CURRENCY_LOCATION_ACCOUNT or CURRENCY_LOCATION_CHARACTER
+					 currencyType == CURT_TRADE_BARS or
+					 currencyType == CURT_TOME_POINTS) and CURRENCY_LOCATION_ACCOUNT or CURRENCY_LOCATION_CHARACTER
 	local amount = GetCurrencyAmount(currencyType, location)
 	local icon = GetCurrencyKeyboardIcon(currencyType)
 	local color
@@ -1051,11 +1046,6 @@ function InfoPanel.Update()
 		info=info..(info=="" and "" or "  ")..text
 		panel_w=panel_w+icon_p_size1+(w+2)*fs
 	end
-	if GlobalSettings.ImperialFragments then
-	local text,w=GetCurency(CURT_IMPERIAL_FRAGMENTS)
-	info=info..(info=="" and "" or "  ")..text
-	panel_w=panel_w+icon_p_size1+(w+2)*fs
-	end
 	if GlobalSettings.Vouchers then
 		local text,w=GetCurency(CURT_WRIT_VOUCHERS)
 		info=info..(info=="" and "" or "  ")..text
@@ -1095,14 +1085,14 @@ function InfoPanel.Update()
 		local text=StolenItems
 		panel_w=panel_w+icon_p_size1+(string.len(text)+1)*fs
 		if FenceSells~=FenceLaunders then text=text.." |cCCCCAA/"..FenceSells..","..FenceLaunders.."|r" panel_w=panel_w+(string.len(FenceSells..FenceLaunders)+1)*fs end
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[28].icon,icon_p_size1,icon_p_size1)..text
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[27].icon,icon_p_size1,icon_p_size1)..text
 	end
 	if GlobalSettings.Apparel then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[29].icon,icon_p_size1,icon_p_size1).." "..((WornCondition<=10) and "|cCC2222" or "|cCCCCAA")..WornCondition.."%|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[28].icon,icon_p_size1,icon_p_size1).." "..((WornCondition<=10) and "|cCC2222" or "|cCCCCAA")..WornCondition.."%|r"
 		panel_w=panel_w+icon_p_size1+(WornCondition<100 and 4.5 or 5)*fs
 	end
 	if GlobalSettings.Weapons then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[30].icon,icon_p_size1,icon_p_size1).." "..((MinCharge<=10) and "|cCC2222" or "|cCCCCAA")..MinCharge.."%|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[29].icon,icon_p_size1,icon_p_size1).." "..((MinCharge<=10) and "|cCC2222" or "|cCCCCAA")..MinCharge.."%|r"
 		panel_w=panel_w+icon_p_size1+(MinCharge<100 and 4.5 or 5)*fs
 	end
 	if GlobalSettings.Achievements==1 then
@@ -1113,7 +1103,7 @@ function InfoPanel.Update()
 		panel_w=panel_w+icon_p_size1+17*fs
 	end
 	if GlobalSettings.Skyshards then
-		info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[32].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..GetNumSkyShards().."|r")
+		info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[31].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..GetNumSkyShards().."|r")
 		panel_w=panel_w+icon_p_size2+3*fs
 	end
 --[[
@@ -1131,17 +1121,17 @@ function InfoPanel.Update()
 --		  local t2=format_timer(RaidTargetTime)
 		local score=GetCurrentRaidScore()/1000
 		local t3=score>0 and ": "..score.."K" or ""
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[36].icon,icon_p_size2,icon_p_size2).." "..t1..t3	 --"|cCCCCAA/"..t2.."|r"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[35].icon,icon_p_size2,icon_p_size2).." "..t1..t3	 --"|cCCCCAA/"..t2.."|r"
 		panel_w=panel_w+icon_p_size2+(string.len(t1..t3)+4)*fs
 	end
 	if GlobalSettings.DungeonInfo and DungeonStartTime>0 then
 		local duration=(GetGameTimeMilliseconds()-DungeonStartTime)/1000
 		local t1=duration>60 and format_timer(duration) or "0m"
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[37].icon,icon_p_size2,icon_p_size2).." "..t1
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[36].icon,icon_p_size2,icon_p_size2).." "..t1
 		panel_w=panel_w+icon_p_size2+(string.len(t1)+1)*fs
 	end
 	if GlobalSettings.DungeonChests and DungeonStartTime>0 then
-		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[38].icon,icon_p_size2,icon_p_size2).." "..ChestsLooted.."|cCCCCAA/2"
+		info=info..(info=="" and "" or "  ")..zo_iconFormat(Settings[37].icon,icon_p_size2,icon_p_size2).." "..ChestsLooted.."|cCCCCAA/2"
 		panel_w=panel_w+icon_p_size2+5*fs
 	end
 	if CharacterSettings.FishingAchivement and FishingWidth>0 then
@@ -1151,7 +1141,7 @@ function InfoPanel.Update()
 	if GlobalSettings.Hirelings and CharacterSettings.Hireling then
 		local delay=CharacterSettings.Hireling-GetTimeStamp()
 		if delay>0 then
-			info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[39].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..format_timer(delay).."|r")
+			info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[38].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..format_timer(delay).."|r")
 			panel_w=panel_w+icon_p_size2+5*fs
 		end
 	end
@@ -1345,7 +1335,7 @@ local function OnExpUpdate(_,unitTag,currentExp,maxExp,reason)
 		if GlobalSettings.ExPgain then
 			local experience=currentExp-LastExp
 			if experience>=5000 then
-				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[44].icon,icon_p_size2,icon_p_size2),reason))
+				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[43].icon,icon_p_size2,icon_p_size2),reason))
 			end
 		end
 	end
@@ -1360,7 +1350,7 @@ local function OnApUpdate(_,alliancePoints,playSound,difference,reason)
 	end
 
 	if GlobalSettings.APgain and playSound and difference>=1000 then
-		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[42].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
+		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[41].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
 	end
 end
 
@@ -1375,7 +1365,7 @@ local function OnTelvarGain(_,newTelvarStones,oldTelvarStones,reason)
 	if GlobalSettings.TelvarGain then
 		local stones=newTelvarStones-oldTelvarStones
 		if stones>=500 then
-			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[43].icon,icon_p_size2,icon_p_size2),reason))
+			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[42].icon,icon_p_size2,icon_p_size2),reason))
 		end
 	end
 end
