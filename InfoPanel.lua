@@ -211,7 +211,7 @@ local Localization={
 	"Panel Options",			"",
 	"Memory used by add-ons",	 "",
 	"Timer",				"Need to bind keys in CONTROLS menu to use",
-	"Auto start timer",		"Auto start timer on dungeon bosses (loot can be received once in 4 min)",
+	"Auto start timer",		"Auto start timer on dungeon bosses (loot can be received once in 5 min)",
 	"Bag space",			"",
 	"Bank space",			 "",
 	"Soul gems",			"",
@@ -282,7 +282,7 @@ local Localization={
 	"Информация панели",		"",
 	"Память занимаемая аддонами",	 "",
 	"Таймер",				 "Для использования нужно назначить кнопки в меню CONTROLS",
-	"Авто запуск таймера",		  "Авто запуск таймера на босах в данжах (лут можно болучить не чаще чем раз в 4 минуты)",
+	"Авто запуск таймера",		  "Авто запуск таймера на босах в данжах (лут можно получить не чаще чем раз в 5 минут)",
 	"Место в инвентаре",		"",
 	"Место в банке",			"",
 	"Камни душ",			"",
@@ -353,7 +353,7 @@ local Localization={
 	"Panel Options",			"",
 	"Speicher verwendet von add-ons",	 "",
 	"Timer",				"Need to bind keys in CONTROLS menu to use",
-	"Auto start timer",		   "Auto start timer on dungeon bosses (loot can be received once in 4 min)",
+	"Auto start timer",		   "Auto start timer on dungeon bosses (loot can be received once in 5 min)",
 	"Taschenplaetze",			 "",
 	"Bankplatz",			"",
 	"Seelensteine",			   "",
@@ -425,7 +425,7 @@ local Localization={
 	"Affichage des infos",			  "",
 	"Mémoire occupée par les extensions",	 "Indique la quantité de mémoire vive utilisée par toutes les extensions activées.",
 	"Minuterie",					"Pour utiliser la minuterie, configurer les raccourcis dans le menu Commandes.",
-	"Lancement automatique de la minuterie","Lance automatiquement la minuterie lors des Boss de donjon (le pillage peut être effectué toutes les 4 min).",
+	"Lancement automatique de la minuterie","Lance automatiquement la minuterie lors des Boss de donjon (le pillage peut être effectué toutes les 5 min).",
 	"Espace d'inventaire",		  "Indique l'espace restant ou occupé dans l'inventaire.",
 	"Espace en banque",		   "Indique l'espace restant ou occupé en banque.",
 	"Pierres d'âme pleines",	"Indique le nombre de Pierres d'âme remplies disponibles dans l'inventaire.",
@@ -1184,7 +1184,7 @@ function InfoPanel.TimerStart(IsDungeonBoss)
 		DungeonBossTimer=IsDungeonBoss
 		timer_w=55
 		if now-timer_start<360000 then timer_period=now-timer_start end
-		timer_start=now+(IsDungeonBoss and 240000 or 0)
+		timer_start=now+(IsDungeonBoss and 300000 or 0)
 		UI_InfoPanel_Timer:SetWidth(timer_w)
 		ZO_PerformanceMeters:SetWidth(157+panel_w+timer_w+expps_w) ZO_PerformanceMetersBg:SetWidth((157+panel_w+timer_w+expps_w)*1.7)
 		EVENT_MANAGER:RegisterForUpdate("InfoPanel_Timer", 100, TimerUpdate)
