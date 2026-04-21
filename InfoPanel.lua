@@ -1,5 +1,5 @@
 InfoPanel={}
-local version=1.60
+local version=1.61
 local lang=GetCVar("language.2")
 local fs=7.2
 ZO_CreateStringId("SI_BINDING_NAME_IP_TIMER_START", "Start timer")
@@ -189,22 +189,26 @@ Settings={
 	[37]={name="DungeonInfo",value=false,icon="/esoui/art/icons/mapkey/mapkey_solotrial.dds"},
 	[38]={name="DungeonChests",value=true,icon="/InfoPanel/Chest.dds"},
 	[39]={name="Hirelings",value=false,icon="/esoui/art/mail/gamepad/gp_mailmenu_attachitem.dds"},
-	[40]={name="Settings",value=true,header=true},
-	[41]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
-	[42]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
-	[43]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
-	[44]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
-	[45]={name="Settings",value=true,header=true},
-	[46]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
-	[47]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
-	[48]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
-	[49]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
-	[50]={name="Center",button=true,func=function() CenterInfoPanel() end},
-	[51]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
-	[52]={name="AutoRepair",value=true,header=true},
-	[53]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[54]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
-	[55]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
+	[40]={name="Companions",value=true,header=true},
+	[41]={name="ActiveCompanion",value=false,icon="/esoui/art/companion/gamepad/gp_category_u30_companions.dds"},
+	[42]={name="CompanionLevel",value=false,icon="/esoui/art/tutorial/gamepad/achievement_categoryicon_champion.dds"},
+	[43]={name="CompanionRapport",value=false,icon="/esoui/art/hud/loothistory_icon_rapportincrease_generic.dds"},
+	[44]={name="Settings",value=true,header=true},
+	[45]={name="Achievement_up",value=false,icon="/esoui/art/tutorial/gamepad/gp_playermenu_icon_achievements.dds"},
+	[46]={name="APgain",value=true,icon=GetCurrencyKeyboardIcon(CURT_ALLIANCE_POINTS)},
+	[47]={name="TelvarGain",value=true,icon=GetCurrencyKeyboardIcon(CURT_TELVAR_STONES)},
+	[48]={name="ExPgain",value=true,icon="/esoui/art/icons/icon_experience.dds"},
+	[49]={name="Settings",value=true,header=true},
+	[50]={name="InfoPanel",value=true,icon="/esoui/art/cadwell/check.dds"},
+	[51]={name="Background",value=10,icon="/esoui/art/crafting/universalstyle_rowbackground.dds",slider=true},
+	[52]={name="Scale",value=0,icon="/esoui/art/miscellaneous/gamepad/gp_scrollarrow_up.dds",slider=true},
+	[53]={name="Update",value=5,icon="/esoui/art/help/help_tabicon_feedback_up.dds",slider=true},
+	[54]={name="Center",button=true,func=function() CenterInfoPanel() end},
+	[55]={name="Reset",button=true,func=function() ResetToDefault() end,split=true},
+	[56]={name="AutoRepair",value=true,header=true},
+	[57]={name="AutoRepairStore",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[58]={name="AutoRepairKit",value=false,icon="/esoui/art/treeicons/achievements_indexicon_crafting_up.dds"},
+	[59]={name="AutoRecharge",value=false,icon="/esoui/art/inventory/inventory_tabicon_craftbag_enchanting_up.dds"},
 	}
 local Localization={
 	en={
@@ -248,6 +252,10 @@ local Localization={
 	"Dungeon info",			   "Adds dungeon progress time and score.",
 	"Dungeon chests",			 "Adds quanity of looted/available chests in current dungeon.",
 	"Hirelings (beta)",		   "Time to the next delivery",
+	"Companions",			  "",
+	"Active companion",		  "Displays the active companion name. Hidden when no companion is active.",
+	"Companion rapport",		  "Displays rapport of the active companion. Hidden when no companion is active.",
+	"Companion level",		  "Displays level progress of the active companion. Hidden when no companion is active.",
 	"Chat messages",			"",
 	"Achievement updates",		  "Post in chat achivement updates",
 	"AP gain",				  "Post to chat huge AP ticks",
@@ -319,6 +327,10 @@ local Localization={
 	"Время в данже",			"Добавляет информацию о времени нахождения в данже.",
 	"Сундуки в данже",		  "Показывает колличество собранных/доступных сундуков в текущем данже.",
 	"Наемники (beta)",		  "Время до следующей доставки.",
+	"Компаньоны",			  "",
+	"Активный компаньон",	  "Показывает имя активного компаньона. Если компаньон не активен, строка скрывается.",
+	"Раппорт компаньона",	  "Показывает rapport активного компаньона. Если компаньон не активен, строка скрывается.",
+	"Уровень компаньона",	  "Показывает уровень и прогресс активного компаньона. Если компаньон не активен, строка скрывается.",
 	"Сообщения чата",		 "",
 	"Обновления достижений",	"Вывод в чат информации о обновлении достижений.",
 	"Получение AP gain",		"При получении большого количества AP выводить сообщение в окно чата.",
@@ -388,8 +400,12 @@ local Localization={
 	"Fishing: Achivement info",	   "Displays current zone fishing achivement info (option for current character).",
 	"Trial info",			 "Adds raid progress time and score.",
 	"Dungeon info",			   "Adds dungeon progress time and score.",
-	"Hirelings (beta)",		   "Time to the next delivery",
 	"Dungeon chests",			 "Adds quanity of looted/available chests in current dungeon.",
+	"Hirelings (beta)",		   "Time to the next delivery",
+	"Companions",			  "",
+	"Active companion",		  "Displays the active companion name. Hidden when no companion is active.",
+	"Companion rapport",		  "Displays rapport of the active companion. Hidden when no companion is active.",
+	"Companion level",		  "Displays level progress of the active companion. Hidden when no companion is active.",
 	"Chat Messages",			"",
 	"Leistungsaktualisierungen",		"Post in chat achivement updates",
 	"AP gain",				  "Post to chat huge AP ticks",
@@ -462,6 +478,10 @@ local Localization={
 	"Infos du donjon",		  "Indique le temps de progression et le score du donjon.",
 	"Coffres de donjon",		"Indique le nombre de coffres pillés et disponible dans le donjon actuel.",
 	"Fournisseurs (beta)",		  "Indique le temps restant avant la prochaine livraison.",
+	"Compagnons",			  "",
+	"Compagnon actif",		  "Affiche le nom du compagnon actif. Masqué si aucun compagnon n'est actif.",
+	"Relation du compagnon",	  "Affiche le rapport du compagnon actif. Masqué si aucun compagnon n'est actif.",
+	"Niveau du compagnon",		  "Affiche le niveau et la progression du compagnon actif. Masqué si aucun compagnon n'est actif.",
 	"Chat messages",			"",
 	"Notification des succès",	  "Affiche dans la fenêtre de communication les nouveaux succès.",
 	"Notification de points d'alliance",		"Affiche dans la fenêtre de communication les points d'alliance remportés.",
@@ -984,6 +1004,51 @@ local function GetFishing(zone)
 	end
 end
 
+local function GetSettingIcon(name)
+	for _,data in ipairs(Settings) do
+		if data.name==name then return data.icon end
+	end
+	return nil
+end
+
+local function GetCompanionName()
+	if not HasActiveCompanion() then return nil,0 end
+	local name=GetUnitDisplayName("companion")
+	if not name or name=="" then name=GetUnitName("companion") end
+	if not name or name=="" then return nil,0 end
+	local text=zo_strformat(SI_UNIT_NAME,name)
+	return zo_iconFormat(GetSettingIcon("ActiveCompanion") or "/esoui/art/treeicons/servicepin_companions_up.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+end
+
+local function GetCompanionRapportText()
+	if not HasActiveCompanion() then return nil,0 end
+	local rapportValue=GetActiveCompanionRapport()
+	if rapportValue==nil then return nil,0 end
+	local text
+	if type(rapportValue)=="number" then
+		text=tostring(rapportValue)
+	else
+		text=tostring(rapportValue)
+		text=text:gsub("%s*%b()", "")
+	end
+	return zo_iconFormat(GetSettingIcon("CompanionRapport") or "/esoui/art/icons/quest_scroll_001.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+end
+
+local function GetCompanionLevelText()
+	if not HasActiveCompanion() then return nil,0 end
+	local companionLevel,currentXPInLevel=GetActiveCompanionLevelInfo()
+	if not companionLevel then return nil,0 end
+	local totalXPInLevel=GetNumExperiencePointsInCompanionLevel(companionLevel+1) or 0
+	local text
+	if totalXPInLevel==0 then
+		text=tostring(companionLevel)
+	else
+		local percent=math.max(zo_roundToNearest((currentXPInLevel or 0)/totalXPInLevel,0.01),0)*100
+		text=string.format("%d (%.0f%%)", companionLevel, percent)
+	end
+	return zo_iconFormat(GetSettingIcon("CompanionLevel") or "/esoui/art/icons/icon_experience.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+end
+
 function InfoPanel.Update()
 	panel_w=fs
 	local info=""
@@ -1154,6 +1219,27 @@ function InfoPanel.Update()
 		if delay>0 then
 			info=info..(info=="" and "" or "  ")..(zo_iconFormat(Settings[39].icon,icon_p_size2,icon_p_size2).." ".."|cCCCCAA"..format_timer(delay).."|r")
 			panel_w=panel_w+icon_p_size2+5*fs
+		end
+	end
+	if GlobalSettings.ActiveCompanion then
+		local text,w=GetCompanionName()
+		if text then
+			info=info..(info=="" and "" or "  ")..text
+			panel_w=panel_w+icon_p_size1+(w+2)*fs
+		end
+	end
+	if GlobalSettings.CompanionLevel then
+		local text,w=GetCompanionLevelText()
+		if text then
+			info=info..(info=="" and "" or "  ")..text
+			panel_w=panel_w+icon_p_size1+(w+2)*fs
+		end
+	end
+	if GlobalSettings.CompanionRapport then
+		local text,w=GetCompanionRapportText()
+		if text then
+			info=info..(info=="" and "" or "  ")..text
+			panel_w=panel_w+icon_p_size1+(w+2)*fs
 		end
 	end
 	UI_InfoPanel_Info:SetText(info)
@@ -1346,7 +1432,7 @@ local function OnExpUpdate(_,unitTag,currentExp,maxExp,reason)
 		if GlobalSettings.ExPgain then
 			local experience=currentExp-LastExp
 			if experience>=5000 then
-				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[44].icon,icon_p_size2,icon_p_size2),reason))
+				d(string.format('|c22CC22Experience gain:|r %s%s',format_number(experience),zo_iconFormat(Settings[48].icon,icon_p_size2,icon_p_size2),reason))
 			end
 		end
 	end
@@ -1361,7 +1447,7 @@ local function OnApUpdate(_,alliancePoints,playSound,difference,reason)
 	end
 
 	if GlobalSettings.APgain and playSound and difference>=1000 then
-		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[42].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
+		d("|c22CC22AP gain:|r "..format_number(difference)..zo_iconFormat(Settings[46].icon,icon_p_size2,icon_p_size2))	   --.."("..tostring(reason)..")")
 	end
 end
 
@@ -1376,7 +1462,7 @@ local function OnTelvarGain(_,newTelvarStones,oldTelvarStones,reason)
 	if GlobalSettings.TelvarGain then
 		local stones=newTelvarStones-oldTelvarStones
 		if stones>=500 then
-			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[43].icon,icon_p_size2,icon_p_size2),reason))
+			d(string.format('|cAA22AATelvar gain:|r %s%s',format_number(stones),zo_iconFormat(Settings[47].icon,icon_p_size2,icon_p_size2),reason))
 		end
 	end
 end
@@ -1667,6 +1753,15 @@ function InfoPanel.Initialize()
 		if not init or MenuParam=="Weapons" then OnPairChanged() end
 	else
 		EVENT_MANAGER:UnregisterForEvent("InfoPanel_Event", EVENT_ACTIVE_WEAPON_PAIR_CHANGED)
+	end
+	if GlobalSettings.InfoPanel and (GlobalSettings.ActiveCompanion or GlobalSettings.CompanionRapport or GlobalSettings.CompanionLevel) then
+		EVENT_MANAGER:RegisterForEvent("InfoPanel_Event", EVENT_ACTIVE_COMPANION_STATE_CHANGED, InfoPanel.Update)
+		EVENT_MANAGER:RegisterForEvent("InfoPanel_Event", EVENT_COMPANION_RAPPORT_UPDATE, InfoPanel.Update)
+		EVENT_MANAGER:RegisterForEvent("InfoPanel_Event", EVENT_COMPANION_EXPERIENCE_GAIN, InfoPanel.Update)
+	else
+		EVENT_MANAGER:UnregisterForEvent("InfoPanel_Event", EVENT_ACTIVE_COMPANION_STATE_CHANGED)
+		EVENT_MANAGER:UnregisterForEvent("InfoPanel_Event", EVENT_COMPANION_RAPPORT_UPDATE)
+		EVENT_MANAGER:UnregisterForEvent("InfoPanel_Event", EVENT_COMPANION_EXPERIENCE_GAIN)
 	end
 	if GlobalSettings.InfoPanel then
 		EVENT_MANAGER:RegisterForUpdate("InfoPanel_Update", (GlobalSettings.Update+1)*1000,	   InfoPanel.Update)
