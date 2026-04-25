@@ -254,8 +254,8 @@ local Localization={
 	"Hirelings (beta)",		   "Time to the next delivery",
 	"Companions",			  "",
 	"Active companion",		  "Displays the active companion name. Hidden when no companion is active.",
-	"Companion rapport",		  "Displays rapport of the active companion. Hidden when no companion is active.",
-	"Companion level",		  "Displays level progress of the active companion. Hidden when no companion is active.",
+	"Combat level",		  "Displays combat level progress of the active companion. Hidden when no companion is active.",
+	"Rapport",		  "Displays rapport of the active companion. Hidden when no companion is active.",
 	"Chat messages",			"",
 	"Achievement updates",		  "Post in chat achivement updates",
 	"AP gain",				  "Post to chat huge AP ticks",
@@ -329,8 +329,8 @@ local Localization={
 	"Наемники (beta)",		  "Время до следующей доставки.",
 	"Компаньоны",			  "",
 	"Активный компаньон",	  "Показывает имя активного компаньона. Если компаньон не активен, строка скрывается.",
-	"Раппорт компаньона",	  "Показывает rapport активного компаньона. Если компаньон не активен, строка скрывается.",
-	"Уровень компаньона",	  "Показывает уровень и прогресс активного компаньона. Если компаньон не активен, строка скрывается.",
+	"Боевой уровень",	  "Показывает боевой уровень и прогресс активного компаньона. Если компаньон не активен, строка скрывается.",
+	"Уровень отношений",	  "Показывает уровень отношений активного компаньона. Если компаньон не активен, строка скрывается.",
 	"Сообщения чата",		 "",
 	"Обновления достижений",	"Вывод в чат информации о обновлении достижений.",
 	"Получение AP gain",		"При получении большого количества AP выводить сообщение в окно чата.",
@@ -387,7 +387,7 @@ local Localization={
 	"Undaunted keys",			 "",
 	"Trade Bars",			"Displays current Trade Bars balance",
 	"Tome Points",			"",
-	"Siegel der Bestrebungen",	  "Zeigt das aktuelle Siegel der Bestrebungen Guthaben an",
+	"Siegel",	  "Zeigt das aktuelle Siegel Guthaben an",
 	"Archivale Schätze",		 "Zeigt die aktuellen Archivschätze an",
 	"Gestohlen/Hehler,schieben",	"",
 	"Zustand der Ruestung",		   "",
@@ -403,9 +403,9 @@ local Localization={
 	"Dungeon chests",			 "Adds quanity of looted/available chests in current dungeon.",
 	"Hirelings (beta)",		   "Time to the next delivery",
 	"Companions",			  "",
-	"Active companion",		  "Displays the active companion name. Hidden when no companion is active.",
-	"Companion rapport",		  "Displays rapport of the active companion. Hidden when no companion is active.",
-	"Companion level",		  "Displays level progress of the active companion. Hidden when no companion is active.",
+	"Active companion",		  "",
+	"Gefahrtenstufe",		  "",
+	"Beziehung",		  "",
 	"Chat Messages",			"",
 	"Leistungsaktualisierungen",		"Post in chat achivement updates",
 	"AP gain",				  "Post to chat huge AP ticks",
@@ -463,7 +463,7 @@ local Localization={
 	"Undaunted keys",			 "",
 	"Trade Bars",			"Displays current Trade Bars balance",
 	"Tome Points",			"",
-	"Sceaux d'Effort",		  "Affiche le solde actuel des Sceaux d'Effort",
+	"Sceaux",		  "Affiche le solde actuel des Sceaux",
 	"Fortunes archivistiques", "Affiche le solde actuel des Fortunes archivistiques",
 	"Objets volés/vendus/blanchis","Indique le nombre d'objets volés, vendus et blanchis en possession du personnage.",
 	"Etat des armures",		   "Indique le pourcentage de durabilité des armures portées par le personnage.",
@@ -479,9 +479,9 @@ local Localization={
 	"Coffres de donjon",		"Indique le nombre de coffres pillés et disponible dans le donjon actuel.",
 	"Fournisseurs (beta)",		  "Indique le temps restant avant la prochaine livraison.",
 	"Compagnons",			  "",
-	"Compagnon actif",		  "Affiche le nom du compagnon actif. Masqué si aucun compagnon n'est actif.",
-	"Relation du compagnon",	  "Affiche le rapport du compagnon actif. Masqué si aucun compagnon n'est actif.",
-	"Niveau du compagnon",		  "Affiche le niveau et la progression du compagnon actif. Masqué si aucun compagnon n'est actif.",
+	"Compagnon actif",		  "",
+	"Niveau de Combat",		  "",
+	"Relation",	  "",
 	"Chat messages",			"",
 	"Notification des succès",	  "Affiche dans la fenêtre de communication les nouveaux succès.",
 	"Notification de points d'alliance",		"Affiche dans la fenêtre de communication les points d'alliance remportés.",
@@ -1017,21 +1017,7 @@ local function GetCompanionName()
 	if not name or name=="" then name=GetUnitName("companion") end
 	if not name or name=="" then return nil,0 end
 	local text=zo_strformat(SI_UNIT_NAME,name)
-	return zo_iconFormat(GetSettingIcon("ActiveCompanion") or "/esoui/art/treeicons/servicepin_companions_up.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
-end
-
-local function GetCompanionRapportText()
-	if not HasActiveCompanion() then return nil,0 end
-	local rapportValue=GetActiveCompanionRapport()
-	if rapportValue==nil then return nil,0 end
-	local text
-	if type(rapportValue)=="number" then
-		text=tostring(rapportValue)
-	else
-		text=tostring(rapportValue)
-		text=text:gsub("%s*%b()", "")
-	end
-	return zo_iconFormat(GetSettingIcon("CompanionRapport") or "/esoui/art/icons/quest_scroll_001.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+	return zo_iconFormat(GetSettingIcon("ActiveCompanion") or "/esoui/art/companion/gamepad/gp_category_u30_companions.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
 end
 
 local function GetCompanionLevelText()
@@ -1046,7 +1032,21 @@ local function GetCompanionLevelText()
 		local percent=math.max(zo_roundToNearest((currentXPInLevel or 0)/totalXPInLevel,0.01),0)*100
 		text=string.format("%d (%.0f%%)", companionLevel, percent)
 	end
-	return zo_iconFormat(GetSettingIcon("CompanionLevel") or "/esoui/art/icons/icon_experience.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+	return zo_iconFormat(GetSettingIcon("CompanionLevel") or "/esoui/art/tutorial/gamepad/achievement_categoryicon_champion.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
+end
+
+local function GetCompanionRapportText()
+	if not HasActiveCompanion() then return nil,0 end
+	local rapportValue=GetActiveCompanionRapport()
+	if rapportValue==nil then return nil,0 end
+	local text
+	if type(rapportValue)=="number" then
+		text=tostring(rapportValue)
+	else
+		text=tostring(rapportValue)
+		text=text:gsub("%s*%b()", "")
+	end
+	return zo_iconFormat(GetSettingIcon("CompanionRapport") or "/esoui/art/hud/loothistory_icon_rapportincrease_generic.dds",icon_p_size1,icon_p_size1).." |cCCCCAA"..text.."|r", string.len(text)
 end
 
 function InfoPanel.Update()
